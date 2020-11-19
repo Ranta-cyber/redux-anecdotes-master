@@ -19,7 +19,7 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const reducerAnecdote = (state = initialState, action) => {
+const reducerAnecdote = (state = [], action) => {
   console.log('state now: ', state)
   console.log('action', action)
 
@@ -47,11 +47,19 @@ const reducerAnecdote = (state = initialState, action) => {
             el.content.toLowerCase().indexOf(filterText.toLowerCase()) !== -1)
       }
     }
+    case 'INIT_ANECDOTES':
+      return action.data
+
     default: return state
   }
 }
 
-
+export const initializeAnecdotes = (anecdotes) => {
+  return {
+    type: 'INIT_ANECDOTES',
+    data: anecdotes,
+  }
+}
 
 export const voteAnecdote = (id) => {
   return {
