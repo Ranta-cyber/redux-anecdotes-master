@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {voteAnecdote} from './../reducers/anecdoteReducer'
 import {showNotificationVote} from './../reducers/notificationReducer'
 import Notification from './Notification'
+import Filter from './filter'
 
 const Anecdote = ({anecdote, handleClick}) => {
 //console.log('anecdote 2:', anecdote)
@@ -18,12 +19,11 @@ const Anecdote = ({anecdote, handleClick}) => {
 const AnecdoteList = () => {
   const anecdotes = useSelector(state => state.anecdotes)
   const dispatch = useDispatch()
-
+console.log('ennen sorttia:', anecdotes)
   anecdotes.sort((a,b) => b.votes - a.votes)
   //console.log('Anecdotes2:', anecdotes2)
   return(
     <ul>
-      
       {anecdotes.map(anecdote =>
         <Anecdote key={anecdote.id}
           anecdote = {anecdote}
@@ -41,11 +41,11 @@ const AnecdoteList = () => {
 }
 
 const AnecdoteForm = () => {
-  
   return (
     <div>
       <Notification/>
       <AnecdoteList/>
+      <Filter/>
     </div>
   )
 }

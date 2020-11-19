@@ -25,6 +25,7 @@ const reducerAnecdote = (state = initialState, action) => {
 
   switch (action.type) {
     case 'NEW_ANECDOTE':
+
       return [...state, action.data]
     case 'INCREMENT': {
       const id = action.data.id
@@ -35,6 +36,16 @@ const reducerAnecdote = (state = initialState, action) => {
         return state.map(anecdote =>
           anecdote.id !== id ? anecdote : changedAnecdote 
         ) 
+    }
+    case 'FILTERING': {
+      const filterText = action.data.toFilter
+      
+      if (filterText === '') {
+        return initialState
+      } else {
+          return state.filter(el =>
+            el.content.toLowerCase().indexOf(filterText.toLowerCase()) !== -1)
+      }
     }
     default: return state
   }
@@ -47,6 +58,14 @@ export const voteAnecdote = (id) => {
     type: 'INCREMENT',
     data: { id }
   }
+}
+
+export const filterAnecdotes = (toFilter) => {
+  return {
+    type: 'FILTERING',
+    data: { toFilter }
+  }
+
 }
 
 const generateId = () =>
