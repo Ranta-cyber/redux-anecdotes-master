@@ -30,14 +30,15 @@ const reducerAnecdote = (state = [], action) => {
 
       return [...state, action.data]
     case 'INCREMENT': {
-      const id = action.data.id
+       const id = action.data.id
       const anecdoteToChange = state.find(n => n.id === id)
       const changedAnecdote = { 
         ...anecdoteToChange, 
-        votes: anecdoteToChange.votes + 1 }
+        votes: anecdoteToChange.votes }
         return state.map(anecdote =>
           anecdote.id !== id ? anecdote : changedAnecdote 
-        ) 
+        )  
+        return state
     }
     case 'FILTERING': {
       const filterText = action.data.toFilter
@@ -66,10 +67,15 @@ export const initializeAnecdotes = (anecdotes) => {
   }
 }
 
-export const voteAnecdote = (id) => {
-  return {
-    type: 'INCREMENT',
-    data: { id }
+export const voteAnecdote = (content) => {
+  
+  return async dispatch => {
+    const id = content.id
+    const updAnecdote = await anecdoteService.update(content)
+    dispatch( {
+      type: 'INCREMENT',
+      data: { id }
+    })
   }
 }
 
@@ -98,7 +104,5 @@ export const createAnecdote = (content) => {
     })
   }
 }
-
-
 
 export default reducerAnecdote

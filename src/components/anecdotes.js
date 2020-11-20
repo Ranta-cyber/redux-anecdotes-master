@@ -28,10 +28,14 @@ console.log('ennen sorttia:', anecdotes)
         <Anecdote key={anecdote.id}
           anecdote = {anecdote}
           handleClick={() => {
-            
-            dispatch(voteAnecdote(anecdote.id))
-            dispatch(showNotificationVote(`you voted  '${anecdote.content}'`))
-            setTimeout( () => { dispatch(showNotificationVote("")) }, 5000) 
+            const anecd = anecdote
+            anecd.votes = anecd.votes + 1
+
+            dispatch(voteAnecdote(anecd))
+
+            dispatch(showNotificationVote(`you voted '${anecdote.content}'`, 5))
+            //dispatch(showNotificationVote(`you voted  '${anecdote.content}'`))
+            //setTimeout( () => { dispatch(showNotificationVote("")) }, 5000) 
           }}
           />   
       )}
