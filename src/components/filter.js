@@ -1,13 +1,15 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux' 
+//import { useDispatch } from 'react-redux'
 import { reducerCreatorFilter } from '../reducers/filterReducer'
 import { filterAnecdotes } from './../reducers/anecdoteReducer'
-const Filter = () => {
+
+const Filter = (props) => {
   //const anecdotes = useSelector(state => state.anecdotes)
-  const dispatch = useDispatch()
+  //const dispatch = useDispatch()
   const handleChange = (event) => {
-    dispatch(reducerCreatorFilter(event.target.value))
-    dispatch(filterAnecdotes(event.target.value))
+    props.reducerCreatorFilter(event.target.value)
+    props.filterAnecdotes(event.target.value)
     // input-kentän arvo muuttujassa event.target.value
   }
   const style = {
@@ -21,4 +23,16 @@ const Filter = () => {
   )
 }
 
-export default Filter
+const mapStateToProps = (state) => {
+  return {anecdotes: state.anecdotes}
+}
+
+const mapDispatchToProps = {
+  reducerCreatorFilter,
+  filterAnecdotes
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Filter)

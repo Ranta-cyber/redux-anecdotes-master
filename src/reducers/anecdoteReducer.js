@@ -38,7 +38,7 @@ const reducerAnecdote = (state = [], action) => {
         return state.map(anecdote =>
           anecdote.id !== id ? anecdote : changedAnecdote 
         )  
-        return state
+        
     }
     case 'FILTERING': {
       const filterText = action.data.toFilter

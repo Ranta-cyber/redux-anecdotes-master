@@ -1,12 +1,13 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux' 
+//import { useDispatch } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
 import {showNotificationAdd} from './../reducers/notificationReducer'
 import anecdoteService from './../services/anecdotes'
 
-const NewAnecdote = () => {
+const NewAnecdote = (props) => {
 
-  const dispatch = useDispatch()
+  //const dispatch = useDispatch()
   
   const addAnecdote = async (event) => {
     event.preventDefault()
@@ -14,9 +15,9 @@ const NewAnecdote = () => {
     event.target.content.value = ""  // tyhjentää näytön kenttä
     
     const NewAnecdote = await anecdoteService.createNew(content)
-    dispatch(createAnecdote(content))
+    props.createAnecdote(content)
 
-    dispatch(showNotificationAdd(`you add  '${content}'`, 5))
+    props.showNotificationAdd(`you add  '${content}'`, 5)
   }
 
   return (
@@ -28,4 +29,17 @@ const NewAnecdote = () => {
 
 }
 
-export default NewAnecdote
+const mapStateToProps = (state) => {
+  
+  return {anecdotes: state.anecdotes}
+}
+
+const mapDispatchToProps = {
+  createAnecdote,
+  showNotificationAdd
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewAnecdote)

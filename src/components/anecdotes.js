@@ -1,9 +1,9 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, {useEffect, useState} from 'react'
+import { connect } from 'react-redux' 
+import store from '../store'
+//import { useSelector, useDispatch } from 'react-redux'
 import {voteAnecdote} from './../reducers/anecdoteReducer'
 import {showNotificationVote} from './../reducers/notificationReducer'
-import Notification from './Notification'
-import Filter from './filter'
 
 const Anecdote = ({anecdote, handleClick}) => {
 //console.log('anecdote 2:', anecdote)
@@ -16,24 +16,28 @@ const Anecdote = ({anecdote, handleClick}) => {
   )
 }
 
-const AnecdoteList = () => {
-  const anecdotes = useSelector(state => state.anecdotes)
-  const dispatch = useDispatch()
-console.log('ennen sorttia:', anecdotes)
-  anecdotes.sort((a,b) => b.votes - a.votes)
-  //console.log('Anecdotes2:', anecdotes2)
+const AnecdoteList = (props) => {
+  
+  //const anecdotes = useSelector(state => state.anecdotes)
+  //const dispatch = useDispatch()
+  //console.log('ennen sorttia:', anecdotes)
+  props.anecdotes.sort((a,b) => b.votes - a.votes)
+  ////console.log('Anecdotes2:', anecdotes2)
   return(
     <ul>
-      {anecdotes.map(anecdote =>
+      {props.anecdotes.map(anecdote =>
         <Anecdote key={anecdote.id}
           anecdote = {anecdote}
           handleClick={() => {
             const anecd = anecdote
             anecd.votes = anecd.votes + 1
-
-            dispatch(voteAnecdote(anecd))
-
-            dispatch(showNotificationVote(`you voted '${anecdote.content}'`, 5))
+            props.voteAnecdote(anecd)
+            
+            //dispatch(voteAnecdote(anecd))
+            
+            props.showNotificationVote(`you voted '${anecdote.content}'`, 5)
+            
+            //console.log('timer:', timer)
             //dispatch(showNotificationVote(`you voted  '${anecdote.content}'`))
             //setTimeout( () => { dispatch(showNotificationVote("")) }, 5000) 
           }}
@@ -44,14 +48,18 @@ console.log('ennen sorttia:', anecdotes)
   )
 }
 
-const AnecdoteForm = () => {
-  return (
-    <div>
-      <Notification/>
-      <AnecdoteList/>
-      <Filter/>
-    </div>
-  )
+const mapStateToProps = (state) => {
+  
+      return {anecdotes: state.anecdotes}
 }
 
-export default AnecdoteForm
+const mapDispatchToProps = {
+  voteAnecdote,
+  showNotificationVote
+}
+
+// eksportoidaan suoraan connectin palauttama komponentti
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AnecdoteList)

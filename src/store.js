@@ -5,12 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import reducerAnecdote, { initializeAnecdotes } from './reducers/anecdoteReducer'
 import reducerNotif from './reducers/notificationReducer'
 import filterReducer from './reducers/filterReducer'
+import reducerTimer from './reducers/reducerTimer'
 import anecdoteService from './services/anecdotes'
 
 const reducer = combineReducers({
   anecdotes: reducerAnecdote,
   statenotif: reducerNotif,
-  statefilter: filterReducer
+  statefilter: filterReducer,
+  stateTimer: reducerTimer
 })
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
 
