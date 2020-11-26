@@ -1,6 +1,8 @@
 import React from "react"
 import store from "../store"
 
+var timerId
+
 const reducerNotif = (stateNotif = '', action) => {
   //console.log('action tope:', action.type)
   
@@ -28,7 +30,7 @@ export const showNotificationAdd = (text, time) => {
    data: {text} }
    )
 
-   const timer = setTimeout( () => {dispatch(
+   setTimeout( () => {dispatch(
      {type: 'HIDE_NOTIF',
      data: '' }
      ) }, (time * 1000))
@@ -38,13 +40,13 @@ export const showNotificationAdd = (text, time) => {
 export const showNotificationVote = ( text, time) => {
   
   return async dispatch => {
-    
+    clearTimeout(timerId)
     await dispatch(
    {type: 'SHOW_NEW_VOTE',
    data: {text} }
    )
 
-   const timerId = setTimeout( () => 
+   timerId = setTimeout( () => 
    {dispatch(
     {type: 'HIDE_NOTIF',
     data: '' }
