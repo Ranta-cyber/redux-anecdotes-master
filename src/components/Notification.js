@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
 //import {reducerCreatorTimerClear} from './../reducers/reducerTimer'
 //import {reducerCreatorTimerSetup} from './../reducers/reducerTimer'
 
 const Notification = () => {
-  
+
   //console.log('notification, text.')
-  const notification = 
-  useSelector(stateText => stateText.statenotif)
+  const notification =
+    useSelector(stateText => stateText.statenotif)
   //console.log('notificationX:',notification)
   const style = {
     border: 'solid',
@@ -19,7 +19,7 @@ const Notification = () => {
   if (notification === '') {
     return null
   } else {
-    return(
+    return (
       <div style={style}>
         {notification}
       </div>)
@@ -28,9 +28,9 @@ const Notification = () => {
 }
 
 const mapStateToProps = (state) => {
-  return {stateTimer: state.stateTimer}
+  return { stateTimer: state.stateTimer }
 }
 
 export default connect(
   mapStateToProps
-) (Notification)
+)(Notification)

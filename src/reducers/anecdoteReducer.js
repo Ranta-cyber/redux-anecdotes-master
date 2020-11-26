@@ -30,24 +30,25 @@ const reducerAnecdote = (state = [], action) => {
 
       return [...state, action.data]
     case 'INCREMENT': {
-       const id = action.data.id
+      const id = action.data.id
       const anecdoteToChange = state.find(n => n.id === id)
-      const changedAnecdote = { 
-        ...anecdoteToChange, 
-        votes: anecdoteToChange.votes }
-        return state.map(anecdote =>
-          anecdote.id !== id ? anecdote : changedAnecdote 
-        )  
-        
+      const changedAnecdote = {
+        ...anecdoteToChange,
+        votes: anecdoteToChange.votes
+      }
+      return state.map(anecdote =>
+        anecdote.id !== id ? anecdote : changedAnecdote
+      )
+
     }
     case 'FILTERING': {
       const filterText = action.data.toFilter
-      
+
       if (filterText === '') {
         return initialState
       } else {
-          return state.filter(el =>
-            el.content.toLowerCase().indexOf(filterText.toLowerCase()) !== -1)
+        return state.filter(el =>
+          el.content.toLowerCase().indexOf(filterText.toLowerCase()) !== -1)
       }
     }
     case 'INIT_ANECDOTES':
@@ -68,11 +69,11 @@ export const initializeAnecdotes = (anecdotes) => {
 }
 
 export const voteAnecdote = (content) => {
-  
+
   return async dispatch => {
     const id = content.id
     const updAnecdote = await anecdoteService.update(content)
-    dispatch( {
+    dispatch({
       type: 'INCREMENT',
       data: { id }
     })
@@ -97,11 +98,11 @@ export const createAnecdote = (content) => {
       {
         type: 'NEW_ANECDOTE',
         data: {
-        content,
-        votes: 0,
-        id: generateId()
+          content,
+          votes: 0,
+          id: generateId()
         }
-    })
+      })
   }
 }
 

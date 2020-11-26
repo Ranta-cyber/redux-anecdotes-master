@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
 //import { useDispatch } from 'react-redux'
 import { reducerCreatorFilter } from '../reducers/filterReducer'
 import { filterAnecdotes } from './../reducers/anecdoteReducer'
@@ -24,7 +24,7 @@ const Filter = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  return {anecdotes: state.anecdotes}
+  return { anecdotes: state.anecdotes }
 }
 
 const mapDispatchToProps = {
