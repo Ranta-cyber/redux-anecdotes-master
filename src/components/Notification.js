@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import { connect } from 'react-redux' 
-import {reducerCreatorTimerClear} from './../reducers/reducerTimer'
-import {reducerCreatorTimerSetup} from './../reducers/reducerTimer'
+//import {reducerCreatorTimerClear} from './../reducers/reducerTimer'
+//import {reducerCreatorTimerSetup} from './../reducers/reducerTimer'
 
-const Notification = (props) => {
+const Notification = () => {
   
   //console.log('notification, text.')
   const notification = 
@@ -24,18 +24,13 @@ const Notification = (props) => {
         {notification}
       </div>)
   }
+
 }
 
 const mapStateToProps = (state) => {
   return {stateTimer: state.stateTimer}
 }
 
-const mapDispatchToProps = {
-  reducerCreatorTimerClear,
-  reducerCreatorTimerSetup
-}
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 ) (Notification)

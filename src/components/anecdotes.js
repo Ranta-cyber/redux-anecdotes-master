@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import { connect } from 'react-redux' 
-import store from '../store'
-//import { useSelector, useDispatch } from 'react-redux'
 import {voteAnecdote} from './../reducers/anecdoteReducer'
 import {showNotificationVote} from './../reducers/notificationReducer'
 
@@ -18,11 +16,9 @@ const Anecdote = ({anecdote, handleClick}) => {
 
 const AnecdoteList = (props) => {
   
-  //const anecdotes = useSelector(state => state.anecdotes)
-  //const dispatch = useDispatch()
   //console.log('ennen sorttia:', anecdotes)
   props.anecdotes.sort((a,b) => b.votes - a.votes)
-  ////console.log('Anecdotes2:', anecdotes2)
+  //console.log('Anecdotes2:', anecdotes2)
   return(
     <ul>
       {props.anecdotes.map(anecdote =>
@@ -33,13 +29,7 @@ const AnecdoteList = (props) => {
             anecd.votes = anecd.votes + 1
             props.voteAnecdote(anecd)
             
-            //dispatch(voteAnecdote(anecd))
-            
             props.showNotificationVote(`you voted '${anecdote.content}'`, 5)
-            
-            //console.log('timer:', timer)
-            //dispatch(showNotificationVote(`you voted  '${anecdote.content}'`))
-            //setTimeout( () => { dispatch(showNotificationVote("")) }, 5000) 
           }}
           />   
       )}
@@ -47,7 +37,7 @@ const AnecdoteList = (props) => {
     </ul>
   )
 }
-
+ 
 const mapStateToProps = (state) => {
   
       return {anecdotes: state.anecdotes}

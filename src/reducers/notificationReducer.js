@@ -1,10 +1,8 @@
 import React from "react"
 import store from "../store"
-import {reducerCreatorTimerClear} from './reducerTimer'
-import {reducerCreatorTimerSetup} from './reducerTimer'
 
 const reducerNotif = (stateNotif = '', action) => {
-  console.log('action tope:', action.type)
+  //console.log('action tope:', action.type)
   
   switch (action.type) {
 
@@ -12,8 +10,6 @@ const reducerNotif = (stateNotif = '', action) => {
       return action.data.text
       }
     case 'HIDE_NOTIF': {
-
-      
         return ""
       }
     case 'SHOW_NEW_VOTE': {
@@ -32,7 +28,7 @@ export const showNotificationAdd = (text, time) => {
    data: {text} }
    )
 
-   setTimeout( () => {dispatch(
+   const timer = setTimeout( () => {dispatch(
      {type: 'HIDE_NOTIF',
      data: '' }
      ) }, (time * 1000))
@@ -48,11 +44,13 @@ export const showNotificationVote = ( text, time) => {
    data: {text} }
    )
 
-   const timerId = setTimeout( () => {dispatch(
+   const timerId = setTimeout( () => 
+   {dispatch(
     {type: 'HIDE_NOTIF',
     data: '' }
     ) }, (time * 1000)) 
+    
   }
-}
+} 
 
 export default reducerNotif
